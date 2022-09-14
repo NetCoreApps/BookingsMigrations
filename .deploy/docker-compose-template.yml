@@ -3,8 +3,7 @@ services:
   ${APP_NAME}:
     image: ghcr.io/${IMAGE_REPO}:${RELEASE_VERSION}
     depends_on:
-      ${APP_NAME}-litestream:
-        condition: service_healthy
+      - "${APP_NAME}-litestream"
     restart: always
     network_mode: bridge
     ports:
