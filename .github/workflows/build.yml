@@ -1,0 +1,19 @@
+name: Build
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '6.0'
+    - name: Build
+      run: dotnet build
+    - name: Initialize test database
+      run: dotnet test ./MyApp.Tests --filter FullyQualifiedName=MyApp.Tests.MigrationTasks.Migrate
+    - name: Test
+      run: dotnet test ./MyApp.Tests
